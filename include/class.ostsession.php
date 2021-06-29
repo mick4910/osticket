@@ -64,7 +64,8 @@ class osTicketSession {
                 $bk = 'db';
             $this->backend = new self::$backends[$bk]($this->ttl);
         }
-        catch (Exception $x) {
+        
+         (Exception $x) {
             // Use the database for sessions
             trigger_error($x->getMessage(), E_USER_WARNING);
             $this->backend = new self::$backends['db']($this->ttl);
@@ -186,6 +187,7 @@ extends SessionBackend {
         }
         catch (DoesNotExist $e) {
             $this->data = new SessionData(['session_id' => $id]);
+            $this->data->session_data = "";
         }
         catch (OrmException $e) {
             return false;
